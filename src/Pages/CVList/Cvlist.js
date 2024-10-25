@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import './Cvlist.css';
 
 const Cvlist = () => {
   const [cvList, setCvList] = useState([]);
   const [filteredCvList, setFilteredCvList] = useState([]);
   const inputRef = useRef();
+  const navigate = useNavigate(); 
   const [searchParams, setSearchParams] = useSearchParams({ query: '' });
 
   useEffect(() => {
@@ -35,6 +36,12 @@ const Cvlist = () => {
 
     setCvList(updatedCvList);
     setFilteredCvList(updatedCvList);
+  };
+
+  const handleEdit = (index) => {
+    const selectedCV = cvList[index];
+    console.log(selectedCV);
+    navigate('/step1', { state: selectedCV });
   };
 
   return (
@@ -69,7 +76,8 @@ const Cvlist = () => {
                   </p>
                 </div>
               </Link>
-              <button className='delete-button' onClick={() => handleDelete(index)}>Delete</button>
+              <button className='edit-delete-button' onClick={() => handleDelete(index)}>Delete</button>
+              <button className='edit-delete-button' onClick={() => handleEdit(index)}>Edit</button>
             </li>
           ))}
         </ul>

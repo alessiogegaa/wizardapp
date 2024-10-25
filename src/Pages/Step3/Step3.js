@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Input from '../../Components/Input/Input';
 import ArrowButton from '../../Components/ArrowButton/Arrowbutton';
 import './Step3.css';
@@ -14,6 +14,18 @@ const Step3 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location.state);
+
+  useEffect(()=>{
+    if(location.state) {
+      jobTitleRef.current.value = location.state.JobTitle || "";
+      companyRef.current.value = location.state.Company || "";
+      locationRef.current.value = location.state.Location || "";
+      startDateRef.current.value = location.state.StartDate || "";
+      endDateRef.current.value = location.state.EndDate || "";
+      responsibilitiesRef.current.value = location.state.Responsibilities || "";
+    }
+  },[location.state])
+
   const handleNext = () => {
     const workExperienceData = {
       JobTitle: jobTitleRef.current.value,
@@ -22,6 +34,7 @@ const Step3 = () => {
       StartDate: startDateRef.current.value,
       EndDate: endDateRef.current.value,
       Responsibilities: responsibilitiesRef.current.value,
+      ...location.state
     };
 
     navigate('/step4', { 
@@ -33,8 +46,8 @@ const Step3 = () => {
   };
 
   const handlePrevious = () => {
-    const {Degree, FieldOfStudy, University, Location, StartDate, EndDate, ...rest} = location.state;
-    navigate('/step2', { state: rest });
+    
+    navigate('/step2', { state: location.state });
   };
 
   return (

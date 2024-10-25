@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Input from '../../Components/Input/Input';
 import ArrowButton from '../../Components/ArrowButton/Arrowbutton';
 import './Step4.css';
@@ -10,7 +10,13 @@ const Step4 = () => {
   const certificationsRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state);
+  
+  useEffect(()=>{
+     skillsRef.current.value = location.state.Skills || "";
+     languagesRef.current.value = location.state.Languages || "";
+     certificationsRef.current.value = location.state.Certifications || "";
+  },[location.state]);
+
   const handleNext = () => {
     const skillsData = {
       Skills: skillsRef.current.value,
@@ -27,8 +33,7 @@ const Step4 = () => {
   };
 
   const handlePrevious = () => {
-    const {JobTitle, Company, Location, StartDate, EndDate, Responsibilities, ...rest} = location.state;
-    navigate('/step3', { state: rest });
+    navigate('/step3', { state: location.state });
   };
 
   return (

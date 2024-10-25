@@ -73,7 +73,7 @@
     background-color: #0056b3;
   }
 
-  .delete-button{
+  .edit-delete-button{
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -89,11 +89,11 @@
     transition: background-color 0.3s, transform 0.3s;
   }
 
-  .delete-button:hover {
+  .edit-delete-button:hover {
     background-color: #0056b3;
   }
   
-  .delete-button:active {
+  .edit-delete-button:active {
     transform: scale(0.98); 
   }
   

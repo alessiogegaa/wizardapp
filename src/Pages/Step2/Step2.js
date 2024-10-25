@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Input from '../../Components/Input/Input';
 import ArrowButton from '../../Components/ArrowButton/Arrowbutton';
 import './Step2.css';
@@ -14,7 +14,17 @@ const Step2 = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state);
+
+  useEffect(() => {
+    if (location.state) {
+      degreeRef.current.value = location.state.Degree || '';
+      studyRef.current.value = location.state.FieldOfStudy || '';
+      universityRef.current.value = location.state.University || '';
+      locationRef.current.value = location.state.Location || '';
+      startdateRef.current.value = location.state.StartDate || '';
+      enddateRef.current.value = location.state.EndDate || '';
+    }
+  }, [location]);
 
   const handleNext = () => {
     const formData = {
@@ -25,17 +35,17 @@ const Step2 = () => {
       StartDate: startdateRef.current.value,
       EndDate: enddateRef.current.value,
     };
-  
-    navigate('/step3', { 
-      state: { 
-        ...location.state, 
-        ...formData 
-      } 
+
+    navigate('/step3', {
+      state: {
+        ...location.state,
+        ...formData,
+      },
     });
   };
 
   const handlePrevious = () => {
-    navigate('/step1', { state: "" });
+    navigate('/step1', { state: location.state });
   };
 
   return (
@@ -58,4 +68,3 @@ const Step2 = () => {
 };
 
 export default Step2;
-
