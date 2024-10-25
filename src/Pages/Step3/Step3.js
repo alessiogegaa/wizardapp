@@ -33,8 +33,7 @@ const Step3 = () => {
       Location: locationRef.current.value,
       StartDate: startDateRef.current.value,
       EndDate: endDateRef.current.value,
-      Responsibilities: responsibilitiesRef.current.value,
-      ...location.state
+      Responsibilities: responsibilitiesRef.current.value
     };
 
     navigate('/step4', { 
