@@ -41,7 +41,7 @@ const Cvlist = () => {
   const handleEdit = (index) => {
     const selectedCV = cvList[index];
     console.log(selectedCV);
-    navigate('/step1', { state: selectedCV });
+    navigate('/step1', { state: {...selectedCV, isEditing: true, index: index} });
   };
 
   return (

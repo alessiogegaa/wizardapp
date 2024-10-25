@@ -38,8 +38,8 @@ const Step3 = () => {
     };
 
     navigate('/step4', { 
-      state: { 
-        ...location.state, 
+      state: {
+        ...location.state ,
         ...workExperienceData 
       } 
     });

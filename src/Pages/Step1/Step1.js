@@ -30,10 +30,16 @@ const Step1 = () => {
       email: emailRef.current.value,
       phone: phoneRef.current.value,
       address: addressRef.current.value,
-      ...location.state,
+      isEditing: location.state ? location.state.isEditing : false,
+      index: location.state ? location.state.index : null,
     };
 
-    navigate('/step2', { state: formData });
+    const updatedState = {
+      ...location.state,
+      ...formData,
+    };
+
+    navigate('/step2', { state: updatedState });
   };
 
   return (

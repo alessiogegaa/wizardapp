@@ -7,24 +7,51 @@ const Summary = () => {
   let location = useLocation();
   const navigate = useNavigate();
   console.log(location.state);
-  const handlePrevious = () => {
-    const { Skills, Languages, Certifications, ...rest } = location.state;
 
-    navigate('/step4', { state: rest });
+  const handlePrevious = () => {
+    navigate('/step4', { state: location.state });
   };
 
   const handleFinish = () => {
     const existingCVs = JSON.parse(localStorage.getItem('userCVs')) || [];
     
-    const updatedCVs = [...existingCVs, location.state];
-    
-    localStorage.setItem('userCVs', JSON.stringify(updatedCVs));
+    if (location.state.isEditing) {
+      const index = location.state.index; 
+
+      if (index >= 0 && index < existingCVs.length) {
+        existingCVs[index] = { ...existingCVs[index], ...location.state }; 
+        localStorage.setItem('userCVs', JSON.stringify(existingCVs));
+      } else {
+        console.error('Invalid index');
+      }
+    } else {
+      const updatedCVs = [...existingCVs, location.state];
+      localStorage.setItem('userCVs', JSON.stringify(updatedCVs));
+    }
     
     navigate('/cvs'); 
   };
 
-
-  const { firstName, lastName, email, phone, address, Degree, FieldOfStudy, University, Location: eduLocation, StartDate, EndDate, JobTitle, Company, WorkLocation, Responsibilities, Skills, Languages, Certifications } = location.state;
+  const { 
+    firstName, 
+    lastName, 
+    email, 
+    phone, 
+    address, 
+    Degree, 
+    FieldOfStudy, 
+    University, 
+    Location: eduLocation, 
+    StartDate, 
+    EndDate, 
+    JobTitle, 
+    Company, 
+    WorkLocation, 
+    Responsibilities, 
+    Skills, 
+    Languages, 
+    Certifications 
+  } = location.state;
 
   return (
     <div className="step-container">
